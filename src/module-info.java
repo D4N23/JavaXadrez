@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author danil
+ *
+ */
+module ProjetoJogoXadrez {
+}
