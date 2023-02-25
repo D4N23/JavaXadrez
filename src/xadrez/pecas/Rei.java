@@ -15,4 +15,13 @@ public class Rei extends PecaDeXadrez{
 		return "R";
 	}
 
+	//Metodo que implementa a logica de movimentos possiveis da peça;
+	//***** ainda temporario. Recebe uma matriz temporia percorrendo todas a linha e colunas do tabuleiro;
+	@Override
+	public boolean[][] possiveisMovimentos() {
+		boolean[][] mat = new boolean[getTabuleiro().getLinha()][getTabuleiro().getColuna()];
+		return mat;
+	}
+	
+
 }

@@ -26,8 +26,15 @@ public class Posicao {
 		this.coluna = coluna;
 	}
 	
+	//Metodo pra setar os valores das linha e colunas;
+	public void setValor(int linha, int coluna) {
+		this.linha = linha;
+		this.coluna = coluna;
+	}
+	
 	@Override
 	public String toString() {
 		return linha + ", " + coluna;
 	}
+	
 }

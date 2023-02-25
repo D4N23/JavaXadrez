@@ -28,7 +28,7 @@ public class Program {
 				System.out.println("Destino: ");
 				PosicaoNoXadrez destino = UI.leiaAPosicao(sc);
 				
-				PecaDeXadrez pecaCapturada = xadrez.MovimentosDoXadrez(origem, destino);
+				PecaDeXadrez pecaCapturada = xadrez.movimentosDoXadrez(origem, destino);
 			}
 			catch(XadrezException e) {
 				System.out.println(e.getMessage());
