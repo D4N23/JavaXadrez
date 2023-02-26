@@ -8,14 +8,25 @@ import xadrez.pecas.Torre;
 
 public class PartidaDeXadrez {
 	
+	private int turno;
+	private Cor jogadorAtual;
 	private Tabuleiro tabuleiro;
 	
 	public PartidaDeXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
+		turno = 1;
+		jogadorAtual = Cor.BRANCO;
 		configuracaoInicial();
 	}
 	
-	
+	public int getTurno() {
+		return turno;
+	}
+
+	public Cor getJogadorAtual() {
+		return jogadorAtual;
+	}
+
 	//Estrutura de criação das peças no tabuleiro!!
 	public PecaDeXadrez[][] getPecas(){
 		PecaDeXadrez[][] pmat = new PecaDeXadrez[tabuleiro.getLinha()][tabuleiro.getColuna()];
@@ -43,6 +54,7 @@ public class PartidaDeXadrez {
 		validarOrigemPosicao(origem);
 		validarDestinoPosicao(origem, destino);
 		Peca pecaCapturada= facaMover(origem, destino);
+		proximoTurno();
 		return (PecaDeXadrez)pecaCapturada;
 	}
 	
@@ -58,6 +70,13 @@ public class PartidaDeXadrez {
 		if(!tabuleiro.temUmaPeca(posicao)) {
 			throw new XadrezException("Não existe peca na posicao de origem!!");
 		}
+		//no proximo é feita a operação de pegar a peça na atual posição pelo tabuleiro.peca(posicao),
+		//é feito o Downcast para a classe generica PecaDeXadrez,
+		//é testado a cor atraves do getCor(),
+		//por fim é checado se a peça atual é diferente do atributo jogadorAtual e é lançada uma exception.
+		if(jogadorAtual != ((PecaDeXadrez)tabuleiro.peca(posicao)).getCor()) {
+			throw new  XadrezException("A peça escolhida não é sua!!!");
+		}    
 		if(!tabuleiro.peca(posicao).existeMovimentoPossivel()) {
 			throw new XadrezException("Não exite movimento possivel para esta peça.");
 		}
@@ -67,6 +86,12 @@ public class PartidaDeXadrez {
 		if(!tabuleiro.peca(origem).possiveisMovimentos(destino)) {
 			throw new XadrezException("A peça escolhida não pode se mover para essa posição.");
 		}
+	}
+	
+	//Método com expressão condicional ternária que define qual a cor da peça no turno;
+	private void proximoTurno() {
+		turno++;
+		jogadorAtual = (jogadorAtual == Cor.BRANCO ) ? Cor.PRETO : Cor.BRANCO;
 	}
 	
 	private void colocarPecaNova(char coluna, int linha, PecaDeXadrez peca) {
