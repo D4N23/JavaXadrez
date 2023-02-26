@@ -18,6 +18,10 @@ public abstract class PecaDeXadrez extends Peca{
 		return cor;
 	}
 	
+	public PosicaoNoXadrez getPosicaoNoXadrez() {
+		return PosicaoNoXadrez.paraPosicao(posicao);
+	}
+	
 	//Metodo para saber se há uma ça do oponente em uma dada posição.
 	//checa se a variavel p é diferente de null;
 	//checa se p.getCor é diferente da valor cor da peça atual;
