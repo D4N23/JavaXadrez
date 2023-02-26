@@ -21,11 +21,14 @@ public class Program {
 				UI.limparTela();	
 				UI.printTabuleiro(xadrez.getPecas());
 				System.out.println();
-				System.out.println("Origem: ");
+				System.out.print("Origem: ");
 				PosicaoNoXadrez origem = UI.leiaAPosicao(sc);
 				
+				boolean[][] possiveisMovimentos = xadrez.possiveisMovimentos(origem);
+				UI.limparTela();	
+				UI.printTabuleiro(xadrez.getPecas(), possiveisMovimentos);
 				System.out.println();
-				System.out.println("Destino: ");
+				System.out.print("Destino: ");
 				PosicaoNoXadrez destino = UI.leiaAPosicao(sc);
 				
 				PecaDeXadrez pecaCapturada = xadrez.movimentosDoXadrez(origem, destino);

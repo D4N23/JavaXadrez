@@ -27,6 +27,16 @@ public class PartidaDeXadrez {
 		return pmat;
 	}
 	
+	//Método para imprimir, na tela, os possiveis movimentos de uma peça;
+	//foi criado uma variavel para receber a posição de origem da peça;
+	//depois usamos o método validarOrigemPosicao, para validadar a posição;
+	//da peça na matriz booleana do metodo;
+	public boolean[][] possiveisMovimentos(PosicaoNoXadrez origemPosicao){
+		Posicao posicao = origemPosicao.toPosicao();
+		validarOrigemPosicao(posicao);
+		return tabuleiro.peca(posicao).possiveisMovimentos();
+	}
+	
 	public PecaDeXadrez movimentosDoXadrez(PosicaoNoXadrez posicaoOrigem, PosicaoNoXadrez posicaoDestino) {
 		Posicao origem = posicaoOrigem.toPosicao();
 		Posicao destino = posicaoDestino.toPosicao();
