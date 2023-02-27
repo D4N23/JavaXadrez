@@ -16,6 +16,7 @@ public class PartidaDeXadrez {
 	private Cor jogadorAtual;
 	private Tabuleiro tabuleiro;
 	private boolean check;
+	private boolean checkMate;
 	
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -37,6 +38,10 @@ public class PartidaDeXadrez {
 	
 	public boolean getCheck() {
 		return check;
+	}
+	
+	public boolean getCheckMate() {
+		return checkMate;
 	}
 
 	//Estrutura de criação das peças no tabuleiro!!
@@ -74,7 +79,12 @@ public class PartidaDeXadrez {
 		
 		check = (testCheck(oponente(jogadorAtual))) ? true : false;
 		
+		if(testCheckMate(oponente(jogadorAtual))) {
+			checkMate = true;
+		}
+		else {
 		proximoTurno();
+		}
 		return (PecaDeXadrez)pecaCapturada;
 	}
 	
@@ -155,6 +165,31 @@ public class PartidaDeXadrez {
 			}
 		}
 		return false;
+	}
+	
+	private boolean testCheckMate(Cor cor) {
+		if(!testCheck(cor)) {
+			return false;
+		}
+		List<Peca> list =  pecasNoTabuleiro.stream().filter(x -> ((PecaDeXadrez)x).getCor()== cor).collect(Collectors.toList());
+		for(Peca p : list) {
+			boolean[][] mat = p.possiveisMovimentos();
+			for(int i = 0; i < tabuleiro.getLinha(); i++) {
+				for(int j = 0; j < tabuleiro.getColuna(); j++) {
+					if(mat[i][j]) {
+						Posicao origem = ((PecaDeXadrez)p).getPosicaoNoXadrez().toPosicao();
+						Posicao destino = new Posicao(i, j);
+						Peca pecaCapturada = facaMover(origem, destino);
+						boolean testCheck = testCheck(cor);
+						desfazMover(origem, destino, pecaCapturada);
+						if(!testCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 	
 	private void colocarPecaNova(char coluna, int linha, PecaDeXadrez peca) {

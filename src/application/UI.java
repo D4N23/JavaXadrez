@@ -56,11 +56,16 @@ public class UI {
 		printPecaCapturada(capturada);
 		System.out.println();
 		System.out.println("Turno: " + xadrez.getTurno());
-		System.out.println("Aguarde o Jogador: " + xadrez.getJogadorAtual());
-		if(xadrez.getCheck()) {
-			System.out.println("CHECK OTARIO !!!!!");
+		if(!xadrez.getCheckMate()) {
+			System.out.println("Aguarde o Jogador: " + xadrez.getJogadorAtual());
+			if(xadrez.getCheck()) {
+				System.out.println("CHECK OTARIO !!!!!");
+			}
 		}
-		
+		else {
+			System.out.println("CHECKMATE VIADO");
+			System.out.println("VENCEDOR: " + xadrez.getJogadorAtual());
+		}
 	}
 
 	// Metodo pra gerar mais de uma peça na tela
