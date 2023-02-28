@@ -7,4 +7,6 @@ public class TabuException extends RuntimeException{
 		super(msg);
 	}
 	
+	
+	
 }
